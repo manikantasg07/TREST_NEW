@@ -1,24 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
+import Header from './Layout/Header';
+import Layout from './Layout/MainLayout';
+import { Container } from 'react-bootstrap';
+
+const app={
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <> 
+       <Layout></Layout>
+    </>
+    // <Container fluid style={{height:"100vh",padding:0,margin:0}}  className='vh-100 p-0 m-0'>
+     
+    // </Container>
   );
 }
 
