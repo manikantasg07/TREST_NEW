@@ -16,7 +16,7 @@ export default function Footer(){
             // lineHeight: '30px',
             fontWeight: 'bold',
         }}>
-            <Col xs="auto">
+            <Col xs="auto" style={{margin:"auto 0px"}}>
                 <img
                     src={faaLogo}
                     alt="Federal Aviation Administration"
