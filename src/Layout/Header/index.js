@@ -42,7 +42,7 @@ export default function Header(){
             </Col>
         </Row>
         <Row className="justify-content-around" style={lowerHeader}>
-           <Col><a href="#">Reports</a></Col>
+           <Col><a href="#" >Reports</a></Col>
            <Col><a href="#">Account Administration</a></Col>
            <Col><a href="#">User Administration</a></Col>
            <Col><a href="#">Check for token</a></Col>

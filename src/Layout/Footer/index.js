@@ -20,10 +20,10 @@ export default function Footer(){
                 <img
                     src={faaLogo}
                     alt="Federal Aviation Administration"
-                    style={{height:"70%", width:"70%"}}
+                    style={{height:"30%", width:"50%"}}
                 />
             </Col>
-            <Col xs={2} style={{marginLeft:"-5px"}}>
+            <Col xs={2} style={{}}>
                 <h5>Federal Aviation Administration</h5>
             </Col>
         </Row>

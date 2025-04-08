@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Column,
     ColumnDef,
@@ -16,14 +16,33 @@ import {
 import { Col, Container, Row } from 'react-bootstrap';
 import Pagination from '@mui/material/Pagination';
 import data from './data';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchTokensRequested } from '../reducer';
 
 
 const BasicTable = () => {
-    const [pagination,setPagination] = useState({
-        pageIndex:0,
-        pageSize:10
-    });
+    // const [pagination,setPagination] = useState({
+    //     pageIndex:0,
+    //     pageSize:10
+    // });
 
+    const [tokens,setTokens] = useState([]);
+    const tokenState = useSelector((state)=>state.tokens)
+    const dispatch = useDispatch();
+    useEffect(()=>{
+        dispatch(fetchTokensRequested())
+    },[dispatch])
+    if(tokenState.loading){
+        return <div>Loading...</div>
+    }
+    else if ( !tokenState.loading && tokenState.tokens){
+        console.log("tokens: ",tokenState.tokens);
+        return <div>Success {tokenState.tokens}</div>
+    }
+    else{
+        return <div>{tokenState.errors}</div>
+    }
+    
     const table = useReactTable({
         columns,
         data,
@@ -32,10 +51,10 @@ const BasicTable = () => {
         getSortedRowModel:getSortedRowModel(),
         getFilteredRowModel:getFilteredRowModel(),
         getPaginationRowModel:getPaginationRowModel(),
-        onPaginationChange:setPagination,
-        state:{
-            pagination,
-        }
+        // onPaginationChange:setPagination,
+        // state:{
+        //     pagination,
+        // }
 
     })
     const handleChange=(event,value)=>{
@@ -46,7 +65,7 @@ const BasicTable = () => {
     }
   return (
     <Container fluid>
-        <Row>
+        <Row >
             <table class="table">
                 <thead>
                     {table.getHeaderGroups().map(headerGroup=>(
@@ -105,10 +124,10 @@ const BasicTable = () => {
         <Row>
             <Col style={{padding:"5px 0px"}} className='d-flex justify-content-end'>
                 <Pagination count={table.getPageCount()} page={table.getState().pagination.pageIndex+1} color='primary' onChange={handleChange} sx={{
-    '& .MuiPaginationItem-previousNext': {
-      color: '#0a76a8',
-    },
-  }}/>
+                    '& .MuiPaginationItem-previousNext': {
+                    color: '#0a76a8',
+                    },
+                }}/>
             </Col>
         </Row>
     </Container>
