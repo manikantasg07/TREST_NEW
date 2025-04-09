@@ -13,7 +13,7 @@ import { isTokenReportLoading,selectPageIndex,selectItemsPerPage,selectPageCount
  } from "./selectors";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { fetchTokensRequested } from "./reducer";
+import { fetchTokensRequested , resetPaginationContext} from "./reducer";
 import ReactLoading from 'react-loading';
 import { columns } from "./constants";
 // import {
@@ -49,6 +49,9 @@ function Reports(){
             pageIndex
         }))
     },[dispatch,pageIndex])
+    useEffect(()=>{
+        return ()=>dispatch(resetPaginationContext())
+    },[])
     return(
         <Container fluid >
             <Row style={{padding:"10px 0px"}} className="justify-content-between">
