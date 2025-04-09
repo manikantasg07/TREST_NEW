@@ -16,6 +16,7 @@ const initSlice = createSlice({
             state.status=INIT_STATUS_INITIALIZED
         },
         initializationFailed:(state,action)=>{
+            
             state.status=INIT_STATUS_FAILED
             state.errors=action.payload
         }

@@ -3,7 +3,7 @@ import  authReducer from "../auth/reducer"
 import initReducer from "../init/reducer"
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "./saga";
-import tokenReducer from "../Reports/reducer";
+import tokenReducer from "../screens/TokenReports/reducer";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -12,7 +12,7 @@ const store = configureStore({
     reducer:{
         auth:authReducer,
         init:initReducer,
-        tokens:tokenReducer,
+        tokenReports:tokenReducer,
     },
     middleware:(getDefaultMiddleware)=>getDefaultMiddleware().concat(sagaMiddleware),
 })

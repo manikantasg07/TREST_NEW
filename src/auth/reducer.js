@@ -9,7 +9,7 @@ const authSlice =  createSlice({
     },
     reducers:{
         authenticationRequested:(state)=>{
-
+            
         },
         authenticationSucceeded:(state,action)=>{
             state.status=AUTH_STATUS_SUCCEEDED;

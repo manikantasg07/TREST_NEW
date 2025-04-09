@@ -5,8 +5,7 @@ import { call ,all} from "redux-saga/effects";
 
 export default function* rootSaga(){
     yield all([
-        call(initsaga),
-        // call(validateAuth)
-
+        // call(initsaga),
+        call(validateAuth)
     ])
 }

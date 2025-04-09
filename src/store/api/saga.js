@@ -19,7 +19,7 @@ export function* fetchWithAuth(
         return json ? yield call([response, response.json]) : response;
     } else {
         const errorResponse = yield call(createAPIErrorResponse, response);
-        yield call(logAPIErrorResponse, errorResponse);
+        // yield call(logAPIErrorResponse, errorResponse);
         throw errorResponse;
     }
 }

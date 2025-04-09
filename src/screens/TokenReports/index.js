@@ -1,12 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import BasicTable from "./ReportsTable/BasicTable";
+import TokenReportsTable from "./Table";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import Layout from "../Layout/MainLayout";
+// import Layout from "../Layout/MainLayout";
+import Layout from "../../Layout/MainLayout"
+import { isTokenReportLoading,selectPageIndex,selectItemsPerPage,selectPageCount,selectTableData,selectSearch,
+    selectStartDate,selectEndDate,selectTotalItems
+ } from "./selectors";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { fetchTokensRequested } from "./reducer";
+import ReactLoading from 'react-loading';
+import { columns } from "./constants";
 // import {
 //     KeyboardDatePicker,
 // } from '@material-ui/pickers';
@@ -14,8 +23,9 @@ import Layout from "../Layout/MainLayout";
 // import { faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
 
 
-function  Reports(){
+function Reports(){
 
+    const dispatch = useDispatch();
     const [filterOptions,setFilterOptions] = useState({
         taauthority:null,
         startdate:null,
@@ -25,6 +35,20 @@ function  Reports(){
     const handleChange = (event)=>{
 
     }
+    const loading = useSelector(isTokenReportLoading);
+    const pageIndex = useSelector(selectPageIndex);
+    const itemsPerPage = useSelector(selectItemsPerPage);
+    const pageCount = useSelector(selectPageCount);
+    const data = useSelector(selectTableData);
+    const search = useSelector(selectSearch);
+    const startDate = useSelector(selectStartDate);
+    const endDate = useSelector(selectEndDate);
+    const totalItems = useSelector(selectTotalItems);
+    useEffect(()=>{
+        dispatch(fetchTokensRequested({
+            pageIndex
+        }))
+    },[dispatch,pageIndex])
     return(
         <Container fluid >
             <Row style={{padding:"10px 0px"}} className="justify-content-between">
@@ -65,7 +89,15 @@ function  Reports(){
             </Row>
             <Row>
                 <Col>
-                    <BasicTable />
+                    {loading? <ReactLoading type={"spin"} color={"#ffffff"} height={'10px'} width={'10px'} />
+                    :<TokenReportsTable 
+                        pageIndex={pageIndex}
+                        itemsPerPage={itemsPerPage}
+                        pageCount={pageCount}
+                        data={data}
+                        totalItems={totalItems}
+                        columns={columns}
+                    />}
                 </Col>
             </Row>
         </Container>

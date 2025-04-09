@@ -1,19 +1,20 @@
 import { fetchTokensRequested } from "./reducer";
-import { fetchWithAuth } from "../store/api/saga";
+import { fetchWithAuth } from "../../store/api/saga";
+import { getRequestFields, selectPaginationContext } from "./selectors";
 
 export function* fetchTokens() {
     try {
-        // const standardQuery = yield select(getRequestFields);
-        // const { itemsPerPage, pageIndex } = yield select(getPaginationContext);
+        const standardQuery = yield select(getRequestFields);
+        const { itemsPerPage, pageIndex } = yield select(selectPaginationContext);
 
-        // const query = {
-        //     ...standardQuery,
-        //     itemsPerPage,
-        //     pageIndex,
-        // };
+        const query = {
+            ...standardQuery,
+            itemsPerPage,
+            pageIndex,
+        };
         const response = yield call(fetchWithAuth, `tokens`, {
             method: 'GET',
-            // query,
+            query,
         });
         const { data: { items = [], totalItems } = {}, error } = response;
         if (error && error.message) {
@@ -22,7 +23,7 @@ export function* fetchTokens() {
             yield put(fetchTokensSucceeded(items, totalItems));
         }
     } catch (error) {
-        yield put(fetchTokensFailed());
+        yield put(fetchTokensFailed(error));
     }
 }
 

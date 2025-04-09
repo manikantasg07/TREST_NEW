@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../Header";
 import Footer from "../Footer";
 import { Col, Container, Row } from "react-bootstrap";
-import Reports from "../../Reports";
+import Reports from "../../screens/TokenReports";
 import { useSelector } from "react-redux";
 
 export default function Layout({children}) {
