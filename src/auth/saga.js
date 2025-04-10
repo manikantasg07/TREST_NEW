@@ -44,7 +44,7 @@ function* loginRedirect() {
     const pathname = window.location.pathname+window.location.search;
     console.log("Path: ",pathname);
     // ?redirect=${pathname}
-    window.location.href = `https://jsonplaceholder.typicode.com/`;
+    window.location.href = `/auth/login?redirect=/reports`;
 }
 
 export function* validateAuth() {
